@@ -33,13 +33,16 @@ public class FaceCompare{
 		return similarity;
 	}
 	
-	public static void getImage(){
-		System.out.println("Please input the first image url:");
+	public static String getImage(){
+		System.out.println("Please input the image url:");
 		Scanner scanner = new Scanner(System.in);
-		path1 = scanner.next();
-		System.out.println("Please input the second image url:");
-		path2 = scanner.next();
-		scanner.close();
+		String path = null;
+		try{
+			path = scanner.next();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return path;
 	}
 	
 	public static JSONObject getPerson(String path){
@@ -114,7 +117,7 @@ public class FaceCompare{
 	}
 	
 	public static void main(String args[]){
-		getImage();
+		path1 = getImage();
 		person = getPerson(path1);
 		age = getPersonAge(person);
 		variation = getPersonAgeVariation(person);
@@ -127,6 +130,9 @@ public class FaceCompare{
 		System.out.println("The lower bound of the person's age is " + (age - variation));
 		System.out.println("The person is probably a " + race);
 		System.out.println("The person's gender is " + gender);
+		System.out.println("================================================");
+		
+		path2 = getImage();
 		person = getPerson(path2);
 		age = getPersonAge(person);
 		variation = getPersonAgeVariation(person);
@@ -139,6 +145,7 @@ public class FaceCompare{
 		System.out.println("The lower bound of the person's age is " + (age - variation));
 		System.out.println("The person is probably a " + race);
 		System.out.println("The person's gender is " + gender);
+		System.out.println("================================================");
 		System.out.println("Person 1 and Person 2's similarity is: " + getSimilarity());
 	}
 }
